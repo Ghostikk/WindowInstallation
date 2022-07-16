@@ -47,7 +47,7 @@ const modals = () => {
   // вызываем модальное окно для .phone_link
   bindModal('.phone_link', '.popup', '.popup .popup_close');
 
-  showModalByTime ('.popup', 60000);
+  // showModalByTime ('.popup', 60000);
 };
 
 
