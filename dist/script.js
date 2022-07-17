@@ -15475,7 +15475,7 @@ __webpack_require__.r(__webpack_exports__);
 
 window.addEventListener("DOMContentLoaded", function () {
   Object(_modules_modals__WEBPACK_IMPORTED_MODULE_1__["default"])();
-  Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_2__["default"])('.glazing_slider', '.glazing_block', '.glazing_content', 'active');
+  Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_2__["default"])('.glazing_slider', '.glazing_block', '.glazing_content', 'active', 'fadeInLeft');
   Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_2__["default"])('.decoration_slider', '.no_click', '.decoration_content > div > div', 'after_click');
   Object(_modules_forms__WEBPACK_IMPORTED_MODULE_3__["default"])();
 });
@@ -15531,7 +15531,8 @@ var modals = function modals() {
     close.addEventListener('click', function () {
       modal.style.display = 'none';
       document.body.style.overflow = ''; // document.body.classList.remove('modal-open');
-    });
+    }); // закрытие модального окна при клике на подложку
+
     modal.addEventListener('click', function (e) {
       if (e.target === modal) {
         modal.style.display = 'none';

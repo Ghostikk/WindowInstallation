@@ -24,7 +24,7 @@ const modals = () => {
             document.body.style.overflow = '';
             // document.body.classList.remove('modal-open');
         });
-        
+        // закрытие модального окна при клике на подложку
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
                 modal.style.display = 'none';
