@@ -15579,6 +15579,7 @@ var tabs = function tabs(headerSelector, tabSelector, contentSelector, activeCla
       tab = document.querySelectorAll(tabSelector),
       content = document.querySelectorAll(contentSelector),
       text = document.querySelectorAll(textSelector);
+  console.log(text);
 
   function hideTabContent() {
     content.forEach(function (item) {
@@ -15590,24 +15591,20 @@ var tabs = function tabs(headerSelector, tabSelector, contentSelector, activeCla
     });
   }
 
-  ;
-
   function showTabContent() {
     var i = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
     content[i].style.display = 'block';
     tab[i].classList.add(activeClass);
     tab[i].classList.add(borderSelector);
+  } //Доработать плавное переключение цвета ссылок вместе с табами
+
+
+  function changeColorText() {
+    text.forEach(function (item) {
+      item.classList.toggle('linkColor');
+    });
   }
 
-  ; // Доработать плавное переключение цвета ссылок вместе с табами
-  // function changeColorText() {
-  //     text.forEach(item => {
-  //         item.classList.toggle('linkColor');
-  //     });
-  // }
-
-  hideTabContent();
-  showTabContent();
   header.addEventListener('click', function (e) {
     var target = e.target; // убираем точку с класса tabSelector с помощью регулярного выражения
 
@@ -15615,11 +15612,14 @@ var tabs = function tabs(headerSelector, tabSelector, contentSelector, activeCla
       tab.forEach(function (item, index) {
         if (target == item || target.parentNode == item) {
           hideTabContent();
-          showTabContent(index); // changeColorText();
+          showTabContent(index);
         }
       });
     }
   });
+  hideTabContent();
+  showTabContent();
+  changeColorText();
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (tabs);
