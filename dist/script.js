@@ -15475,7 +15475,7 @@ __webpack_require__.r(__webpack_exports__);
 
 window.addEventListener("DOMContentLoaded", function () {
   Object(_modules_modals__WEBPACK_IMPORTED_MODULE_1__["default"])();
-  Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_2__["default"])('.glazing_slider', '.glazing_block', '.glazing_content', 'active', 'fadeInLeft');
+  Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_2__["default"])('.glazing_slider', '.glazing_block', '.glazing_content', 'active', 'fadeInLeft', '.glazing_block a');
   Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_2__["default"])('.decoration_slider', '.no_click', '.decoration_content > div > div', 'after_click');
   Object(_modules_forms__WEBPACK_IMPORTED_MODULE_3__["default"])();
 });
@@ -15574,10 +15574,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var tabs = function tabs(headerSelector, tabSelector, contentSelector, activeClass, borderSelector) {
+var tabs = function tabs(headerSelector, tabSelector, contentSelector, activeClass, borderSelector, textSelector) {
   var header = document.querySelector(headerSelector),
       tab = document.querySelectorAll(tabSelector),
-      content = document.querySelectorAll(contentSelector);
+      content = document.querySelectorAll(contentSelector),
+      text = document.querySelectorAll(textSelector);
 
   function hideTabContent() {
     content.forEach(function (item) {
@@ -15598,7 +15599,13 @@ var tabs = function tabs(headerSelector, tabSelector, contentSelector, activeCla
     tab[i].classList.add(borderSelector);
   }
 
-  ;
+  ; // Доработать плавное переключение цвета ссылок вместе с табами
+  // function changeColorText() {
+  //     text.forEach(item => {
+  //         item.classList.toggle('linkColor');
+  //     });
+  // }
+
   hideTabContent();
   showTabContent();
   header.addEventListener('click', function (e) {
@@ -15608,7 +15615,7 @@ var tabs = function tabs(headerSelector, tabSelector, contentSelector, activeCla
       tab.forEach(function (item, index) {
         if (target == item || target.parentNode == item) {
           hideTabContent();
-          showTabContent(index);
+          showTabContent(index); // changeColorText();
         }
       });
     }
