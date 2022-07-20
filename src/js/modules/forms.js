@@ -1,25 +1,5 @@
 const forms = () => {
     const form = document.querySelectorAll('form'),
-<<<<<<< HEAD
-          input = document.querySelectorAll('input');
-
-    const message = {
-        loaging: 'Загрузка...',
-        success: 'Спасибо! Скоро с вами свяжутся!',
-        failure: 'Что-то пошло не так...'
-    }
-
-
-    form.forEach(item => {
-        item.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            let statusMassage = document.createElement('div');
-            statusMassage.classList.add('status');
-            item.appendChild(statusMassage);
-        })
-    })
-=======
           inputs = document.querySelectorAll('input'),
           phoneInputs = document.querySelectorAll('input[name="user_phone"]');
           
@@ -92,7 +72,6 @@ const forms = () => {
 
         });
   });
->>>>>>> 702d8cad77e41cbf80404fb7967c51b6b2a2e7d4
 };
 
 export default forms;
