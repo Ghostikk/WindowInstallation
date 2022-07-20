@@ -15491,7 +15491,27 @@ window.addEventListener("DOMContentLoaded", function () {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-var forms = function forms() {};
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var forms = function forms() {
+  var form = document.querySelectorAll('form'),
+      input = document.querySelectorAll('input');
+  var message = {
+    loaging: 'Загрузка...',
+    success: 'Спасибо! Скоро с вами свяжутся!',
+    failure: 'Что-то пошло не так...'
+  };
+  form.forEach(function (item) {
+    item.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var statusMassage = document.createElement('div');
+      statusMassage.classList.add('status');
+      item.appendChild(statusMassage);
+    });
+  });
+};
 
 /* harmony default export */ __webpack_exports__["default"] = (forms);
 
@@ -15579,6 +15599,7 @@ var tabs = function tabs(headerSelector, tabSelector, contentSelector, activeCla
       tab = document.querySelectorAll(tabSelector),
       content = document.querySelectorAll(contentSelector),
       text = document.querySelectorAll(textSelector);
+  console.log(text);
 
   function hideTabContent() {
     content.forEach(function (item) {
@@ -15590,24 +15611,20 @@ var tabs = function tabs(headerSelector, tabSelector, contentSelector, activeCla
     });
   }
 
-  ;
-
   function showTabContent() {
     var i = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
     content[i].style.display = 'block';
     tab[i].classList.add(activeClass);
     tab[i].classList.add(borderSelector);
+  } //Доработать плавное переключение цвета ссылок вместе с табами
+
+
+  function changeColorText() {
+    text.forEach(function (item) {
+      item.classList.toggle('linkColor');
+    });
   }
 
-  ; // Доработать плавное переключение цвета ссылок вместе с табами
-  // function changeColorText() {
-  //     text.forEach(item => {
-  //         item.classList.toggle('linkColor');
-  //     });
-  // }
-
-  hideTabContent();
-  showTabContent();
   header.addEventListener('click', function (e) {
     var target = e.target; // убираем точку с класса tabSelector с помощью регулярного выражения
 
@@ -15615,11 +15632,14 @@ var tabs = function tabs(headerSelector, tabSelector, contentSelector, activeCla
       tab.forEach(function (item, index) {
         if (target == item || target.parentNode == item) {
           hideTabContent();
-          showTabContent(index); // changeColorText();
+          showTabContent(index);
         }
       });
     }
   });
+  hideTabContent();
+  showTabContent();
+  changeColorText();
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (tabs);
