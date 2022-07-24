@@ -17821,7 +17821,7 @@ window.addEventListener("DOMContentLoaded", function () {
   Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_2__["default"])('.glazing_slider', '.glazing_block', '.glazing_content', 'active');
   Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_2__["default"])('.decoration_slider', '.no_click', '.decoration_content > div > div', 'after_click');
   Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_2__["default"])('.balcon_icons', '.balcon_icons_img', '.big_img > img', 'do_image_more', 'inline-block');
-  Object(_modules_forms__WEBPACK_IMPORTED_MODULE_3__["default"])();
+  Object(_modules_forms__WEBPACK_IMPORTED_MODULE_3__["default"])(modalState);
 });
 
 /***/ }),
@@ -17853,10 +17853,26 @@ var changeModalState = function changeModalState(state) {
   function byActionToElems(event, elem, keyObject) {
     elem.forEach(function (item, index) {
       item.addEventListener(event, function () {
-        if (elem.length > 1) {
-          state[keyObject] = index + 1;
-        } else {
-          state[keyObject] = item.value;
+        switch (item.nodeName) {
+          case 'SPAN':
+            state[keyObject] = index + 1;
+            break;
+
+          case 'INPUT':
+            if (item.getAttribute('type') === 'checkbox') {
+              index === 0 ? state[keyObject] = 'Холодное' : state[keyObject] = 'Теплое';
+              elem.forEach(function (box, indexElem) {
+                index == indexElem ? box.checked = true : box.checked = false;
+              });
+            } else {
+              state[keyObject] = item.value;
+            }
+
+            break;
+
+          case 'SELECT':
+            state[keyObject] = item.value;
+            break;
         }
 
         console.log(state);
@@ -17867,6 +17883,8 @@ var changeModalState = function changeModalState(state) {
   byActionToElems('click', windowForm, 'windowForm');
   byActionToElems('input', windowWidth, 'windowWidth');
   byActionToElems('input', windowHeight, 'windowHeight');
+  byActionToElems('change', windowType, 'typeWindow');
+  byActionToElems('change', windowProfile, 'profileWindow');
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (changeModalState);
@@ -17931,7 +17949,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var forms = function forms() {
+var forms = function forms(state) {
   var form = document.querySelectorAll('form'),
       inputs = document.querySelectorAll('input'); //Создаем объект с сообщениями, которые будет выводить пользователю
 
@@ -17986,9 +18004,16 @@ var forms = function forms() {
       statusMessadge.classList.add('status');
       item.appendChild(statusMessadge); //сборка данных с формы (нужно учеть в каком формате их примет сервер и подкорректировать при необходимости)
 
-      var formData = new FormData(item); // впревращает объект в матрицу (массив массивов), далее в объект, а далее в JSON
+      var formData = new FormData(item); // если у объекта item появляется атрибут data-calc = 'end' (последнее модальное окно), то добавляем туда еще данные 
+
+      if (item.getAttribute('data-calc') === 'end') {
+        for (var key in state) {
+          formData.append(key, state[key]);
+        }
+      } // впревращает объект в матрицу (массив массивов), далее в объект, а далее в JSON
       // const json = JSON.stringify(Object.fromEntries(formData.entries()));
       // обработка промиса формы
+
 
       postData('assets/server.php', formData).then(function (result) {
         console.log(result);

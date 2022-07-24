@@ -13,13 +13,28 @@ const changeModalState = (state) => {
     function byActionToElems (event, elem, keyObject) {
         elem.forEach((item, index) => {
             item.addEventListener(event,() => {
-                if (elem.length > 1) {
-                    state[keyObject] = index+1;
-                } else {
-                    state[keyObject] = item.value;
+                switch(item.nodeName) {
+                    case 'SPAN' :
+                        state[keyObject] = index+1;
+                        break;
+
+                    case 'INPUT' :
+                        if(item.getAttribute('type') === 'checkbox') {
+                            index === 0 ? state[keyObject] = 'Холодное' : state[keyObject] = 'Теплое';
+                            elem.forEach((box, indexElem) => {
+                                index == indexElem ? box.checked = true : box.checked = false; 
+                            });
+                        } else {
+                            state[keyObject] = item.value;
+                        }
+                        break;
+
+                    case 'SELECT' : 
+                        state[keyObject] = item.value;
+                        break;
                 }
                 
-                console.log(state);
+            console.log(state);
           });
       });
     }
@@ -27,6 +42,9 @@ const changeModalState = (state) => {
     byActionToElems ('click', windowForm, 'windowForm');
     byActionToElems ('input', windowWidth, 'windowWidth');
     byActionToElems ('input', windowHeight, 'windowHeight');
+    byActionToElems ('change', windowType, 'typeWindow');
+    byActionToElems ('change', windowProfile, 'profileWindow');
+
 };  
 
 export default changeModalState;

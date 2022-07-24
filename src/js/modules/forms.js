@@ -1,6 +1,6 @@
 import checkNumber from './checkNumber';
 
-const forms = () => {
+const forms = (state) => {
     const form = document.querySelectorAll('form'),
           inputs = document.querySelectorAll('input');
     //Создаем объект с сообщениями, которые будет выводить пользователю
@@ -38,6 +38,12 @@ const forms = () => {
 
             //сборка данных с формы (нужно учеть в каком формате их примет сервер и подкорректировать при необходимости)
             const formData = new FormData(item);
+            // если у объекта item появляется атрибут data-calc = 'end' (последнее модальное окно), то добавляем туда еще данные 
+            if(item.getAttribute('data-calc') === 'end') {
+                for (let  key  in state) {
+                    formData.append(key, state[key]);
+                }
+            }
             // впревращает объект в матрицу (массив массивов), далее в объект, а далее в JSON
             // const json = JSON.stringify(Object.fromEntries(formData.entries()));
             // обработка промиса формы
