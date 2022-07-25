@@ -17830,10 +17830,6 @@ window.addEventListener("DOMContentLoaded", function () {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-<<<<<<< HEAD
-/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
-/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__);
-=======
 /* harmony import */ var core_js_modules_es_object_to_string__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.object.to-string */ "./node_modules/core-js/modules/es.object.to-string.js");
 /* harmony import */ var core_js_modules_es_object_to_string__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var core_js_modules_es_promise__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es.promise */ "./node_modules/core-js/modules/es.promise.js");
@@ -17851,25 +17847,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
->>>>>>> 702d8cad77e41cbf80404fb7967c51b6b2a2e7d4
 
 
 var forms = function forms() {
   var form = document.querySelectorAll('form'),
-<<<<<<< HEAD
-      input = document.querySelectorAll('input');
-  var message = {
-    loaging: 'Загрузка...',
-    success: 'Спасибо! Скоро с вами свяжутся!',
-    failure: 'Что-то пошло не так...'
-  };
-  form.forEach(function (item) {
-    item.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var statusMassage = document.createElement('div');
-      statusMassage.classList.add('status');
-      item.appendChild(statusMassage);
-=======
       inputs = document.querySelectorAll('input'),
       phoneInputs = document.querySelectorAll('input[name="user_phone"]'); //Создаем объект с сообщениями, которые будет выводить пользователю
 
@@ -17946,7 +17927,6 @@ var forms = function forms() {
           statusMessadge.remove();
         }, 5000);
       });
->>>>>>> 702d8cad77e41cbf80404fb7967c51b6b2a2e7d4
     });
   });
 };
