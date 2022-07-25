@@ -1,10 +1,11 @@
 const modals = () => {
   // trigger - селектор кнопки modal(close) селекторы для открытия и закрытия окна
-    function bindModal(triggerSelector, modalSelector, closeSelector) {
+    function bindModal(triggerSelector, modalSelector, closeSelector, closeClickOverlay = true) {
 
         const trigger = document.querySelectorAll(triggerSelector),
               modal = document.querySelector(modalSelector),
-              close = document.querySelector(closeSelector);
+              close = document.querySelector(closeSelector),
+              windows = document.querySelectorAll('[data-modal]');
 
         trigger.forEach(item => {
             item.addEventListener('click', (e) => {
@@ -12,6 +13,12 @@ const modals = () => {
               if (e.target) {
                   e.preventDefault();
               }
+
+              // перебераем все модальные окна
+              windows.forEach(item => {
+                  item.style.display = 'none';
+              });
+
               modal.style.display = 'block';
               // позволяет скролить только модальное окно, остальная страница "замораживается"
               document.body.style.overflow = 'hidden';
@@ -20,13 +27,21 @@ const modals = () => {
         });
 
         close.addEventListener('click', () => {
+            windows.forEach(item => {
+                  item.style.display = 'none';
+              });
+
             modal.style.display = 'none';
             document.body.style.overflow = '';
             // document.body.classList.remove('modal-open');
         });
         // закрытие модального окна при клике на подложку
         modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
+            if (e.target === modal && closeClickOverlay) {
+                windows.forEach(item => {
+                  item.style.display = 'none';
+                });
+
                 modal.style.display = 'none';
                 document.body.style.overflow = '';
                 // document.body.classList.remove('modal-open');
@@ -46,6 +61,9 @@ const modals = () => {
   bindModal('.popup_engineer_btn', '.popup_engineer', '.popup_engineer .popup_close');
   // вызываем модальное окно для .phone_link
   bindModal('.phone_link', '.popup', '.popup .popup_close');
+  bindModal('.popup_calc_btn', '.popup_calc', '.popup_calc_close');
+  bindModal('.popup_calc_button', '.popup_calc_profile', '.popup_calc_profile_close', false);
+  bindModal('.popup_calc_profile_button', '.popup_calc_end', '.popup_calc_end_close', false);
 
   // showModalByTime ('.popup', 60000);
 };

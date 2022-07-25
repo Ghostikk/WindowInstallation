@@ -1,4 +1,4 @@
-const tabs = (headerSelector, tabSelector, contentSelector, activeClass, borderSelector, textSelector) => {
+const tabs = (headerSelector, tabSelector, contentSelector, activeClass, display = 'block', borderSelector = 'fadeInLeft', textSelector = '.glazing_block a') => {
 
     const header = document.querySelector(headerSelector),
           tab = document.querySelectorAll(tabSelector),
@@ -17,7 +17,8 @@ const tabs = (headerSelector, tabSelector, contentSelector, activeClass, borderS
     }
 
     function showTabContent(i = 0) {
-        content[i].style.display = 'block';
+      // передаем в функци. display = 'block', чтобы утановить это значение по умолчанию. А в случае необходимости передать другое состояние дисплей
+        content[i].style.display = display;
         tab[i].classList.add(activeClass);
         tab[i].classList.add(borderSelector);
     }
