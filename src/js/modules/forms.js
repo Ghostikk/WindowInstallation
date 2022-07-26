@@ -1,8 +1,11 @@
 import checkNumber from './checkNumber';
 
+
 const forms = (state) => {
     const form = document.querySelectorAll('form'),
-          inputs = document.querySelectorAll('input');
+          inputs = document.querySelectorAll('input'),
+          popupEngineer = document.querySelector('.popup_engineer'),
+          popupCalcEnd = document.querySelector('.popup_calc_end');
     //Создаем объект с сообщениями, которые будет выводить пользователю
     const mess = {
           loading: 'Ожидайте, идет загрузка...',
@@ -26,6 +29,19 @@ const forms = (state) => {
             item.value = '';
         });
     };
+
+    // Закрытие формы (костыли)
+     const closeForm = () => {
+        form.forEach(form => {
+            if(form.getAttribute('data-calc') === 'end' || form.getAttribute('data-calc') === 'now') {
+              popupEngineer.style.display = 'none';
+              popupCalcEnd.style.display = 'none';
+              document.body.style.overflow = 'visible';
+            }
+            
+        });
+
+    };
     //
     form.forEach(item => {
         item.addEventListener('submit', (e) => {
@@ -37,7 +53,7 @@ const forms = (state) => {
             item.appendChild(statusMessadge);
 
             //сборка данных с формы (нужно учеть в каком формате их примет сервер и подкорректировать при необходимости)
-            const formData = new FormData(item);
+            let formData = new FormData(item);
             // если у объекта item появляется атрибут data-calc = 'end' (последнее модальное окно), то добавляем туда еще данные 
             if(item.getAttribute('data-calc') === 'end') {
                 for (let  key  in state) {
@@ -51,6 +67,7 @@ const forms = (state) => {
                 .then(result => {
                     console.log(result);
                     statusMessadge.textContent = mess.success;
+                    
                 })
                 .catch(() => {
                     statusMessadge.textContent = mess.failure; 
@@ -60,8 +77,11 @@ const forms = (state) => {
 
                     setTimeout(() => {
                         statusMessadge.remove();
-                    },5000);
+                    },1000);
 
+                    setTimeout(() => {
+                        closeForm();
+                    },2000);
                 });
 
         });

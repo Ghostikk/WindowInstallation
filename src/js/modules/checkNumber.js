@@ -1,6 +1,5 @@
 const checkNumber = (selector) => {
     const numInputs = document.querySelectorAll(selector);
-    console.log(numInputs);
 
     numInputs.forEach(item => {
         item.addEventListener('input', () => {

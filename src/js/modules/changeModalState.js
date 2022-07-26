@@ -1,7 +1,7 @@
 import checkNumber from './checkNumber';
 
 const changeModalState = (state) => {
-    const windowForm = document.querySelectorAll('.balcon_icons_img'),
+    let windowForm = document.querySelectorAll('.balcon_icons_img'),
           windowWidth = document.querySelectorAll('#width'),
           windowHeight = document.querySelectorAll('#height'),
           windowType = document.querySelectorAll('#view_type'),
@@ -9,6 +9,7 @@ const changeModalState = (state) => {
 
     checkNumber('#width');
     checkNumber('#height');
+
 
     function byActionToElems (event, elem, keyObject) {
         elem.forEach((item, index) => {
@@ -27,6 +28,7 @@ const changeModalState = (state) => {
                         } else {
                             state[keyObject] = item.value;
                         }
+
                         break;
 
                     case 'SELECT' : 
@@ -36,6 +38,9 @@ const changeModalState = (state) => {
                 
             console.log(state);
           });
+          
+         
+          
       });
     }
 
@@ -44,6 +49,7 @@ const changeModalState = (state) => {
     byActionToElems ('input', windowHeight, 'windowHeight');
     byActionToElems ('change', windowType, 'typeWindow');
     byActionToElems ('change', windowProfile, 'profileWindow');
+
 
 };  
 
