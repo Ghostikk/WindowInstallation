@@ -9,8 +9,7 @@ const changeModalState = (state) => {
 
     checkNumber('#width');
     checkNumber('#height');
-
-
+      
     function byActionToElems (event, elem, keyObject) {
         elem.forEach((item, index) => {
             item.addEventListener(event,() => {
@@ -25,22 +24,17 @@ const changeModalState = (state) => {
                             elem.forEach((box, indexElem) => {
                                 index == indexElem ? box.checked = true : box.checked = false; 
                             });
-                        } else {
-                            state[keyObject] = item.value;
-                        }
-
+                        } else state[keyObject] = item.value;
                         break;
 
                     case 'SELECT' : 
                         state[keyObject] = item.value;
-                        break;
+                        break; 
                 }
                 
             console.log(state);
+
           });
-          
-         
-          
       });
     }
 
