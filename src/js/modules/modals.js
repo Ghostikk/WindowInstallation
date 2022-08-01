@@ -7,13 +7,14 @@ const modals = () => {
               close = document.querySelector(closeSelector),
               windows = document.querySelectorAll('[data-modal]');
 
+
         trigger.forEach(item => {
             item.addEventListener('click', (e) => {
             // если e.target существ., то отменяет стандартное поведение браузера
               if (e.target) {
                   e.preventDefault();
               }
-
+              
               // перебераем все модальные окна
               windows.forEach(item => {
                   item.style.display = 'none';
@@ -25,6 +26,8 @@ const modals = () => {
               // document.body.classList.add('modal-open');
             });
         });
+
+        
 
         close.addEventListener('click', () => {
             windows.forEach(item => {

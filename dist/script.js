@@ -17851,11 +17851,22 @@ var changeModalState = function changeModalState(state) {
       windowWidth = document.querySelectorAll('#width'),
       windowHeight = document.querySelectorAll('#height'),
       windowType = document.querySelectorAll('#view_type'),
+      buttonCalc = document.querySelectorAll('.popup_calc_button'),
       windowProfile = document.querySelectorAll('.checkbox');
   Object(_checkNumber__WEBPACK_IMPORTED_MODULE_1__["default"])('#width');
   Object(_checkNumber__WEBPACK_IMPORTED_MODULE_1__["default"])('#height');
 
   function byActionToElems(event, elem, keyObject) {
+    // тут должна быть проверка на пустоту полей windowWidth и windowHeight, если они путсые дезактивировать кнопку 
+    // цикл для тестирования, без него тоже не работает
+    buttonCalc.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        // стоит ли обращаться с значения ключей объекта? через windowHeight.value тоже не работает
+        if (state.windowHeight != null && typeof state.windowHeight !== "undefined") {
+          buttonCalc.disabled = true;
+        }
+      });
+    });
     elem.forEach(function (item, index) {
       item.addEventListener(event, function () {
         switch (item.nodeName) {

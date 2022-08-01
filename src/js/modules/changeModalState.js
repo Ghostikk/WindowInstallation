@@ -5,12 +5,27 @@ const changeModalState = (state) => {
           windowWidth = document.querySelectorAll('#width'),
           windowHeight = document.querySelectorAll('#height'),
           windowType = document.querySelectorAll('#view_type'),
+          buttonCalc = document.querySelectorAll('.popup_calc_button'),
           windowProfile = document.querySelectorAll('.checkbox');
 
     checkNumber('#width');
     checkNumber('#height');
       
+    
+
     function byActionToElems (event, elem, keyObject) {
+
+        // тут должна быть проверка на пустоту полей windowWidth и windowHeight, если они путсые дезактивировать кнопку 
+        // цикл для тестирования, без него тоже не работает
+        buttonCalc.forEach (btn => {
+            btn.addEventListener('click', ()=> {
+                // стоит ли обращаться с значения ключей объекта? через windowHeight.value тоже не работает
+                if (state.windowHeight != null && typeof state.windowHeight !== "undefined") {
+                    buttonCalc.disabled = true;
+                }
+            });
+        });
+
         elem.forEach((item, index) => {
             item.addEventListener(event,() => {
                 switch(item.nodeName) {
@@ -25,13 +40,16 @@ const changeModalState = (state) => {
                                 index == indexElem ? box.checked = true : box.checked = false; 
                             });
                         } else state[keyObject] = item.value;
+
+                        
+
                         break;
 
                     case 'SELECT' : 
                         state[keyObject] = item.value;
                         break; 
                 }
-                
+            
             console.log(state);
 
           });
@@ -44,6 +62,7 @@ const changeModalState = (state) => {
     byActionToElems ('change', windowType, 'typeWindow');
     byActionToElems ('change', windowProfile, 'profileWindow');
 
+  
 
 };  
 
