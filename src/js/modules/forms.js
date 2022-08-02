@@ -67,8 +67,6 @@ const forms = (state) => {
                 .then(result => {
                     console.log(result);
                     statusMessadge.textContent = mess.success;
-                    // обнуление формы
-                    formData = {};
                 })
                 .catch(() => {
                     statusMessadge.textContent = mess.failure; 

@@ -17854,8 +17854,9 @@ var changeModalState = function changeModalState(state) {
       windowHeight = document.querySelectorAll('#height'),
       windowType = document.querySelectorAll('#view_type'),
       buttonCalc = document.querySelector('.popup_calc_button'),
+      buttonNext = document.querySelector('.popup_calc_profile_button'),
       windowProfile = document.querySelectorAll('.checkbox');
-  buttonCalc.disabled = true;
+  buttonCalc.disabled, buttonNext.disabled = true;
   Object(_checkNumber__WEBPACK_IMPORTED_MODULE_1__["default"])('#width');
   Object(_checkNumber__WEBPACK_IMPORTED_MODULE_1__["default"])('#height');
 
@@ -17871,7 +17872,10 @@ var changeModalState = function changeModalState(state) {
             if (item.getAttribute('type') === 'checkbox') {
               index === 0 ? state[keyObject] = 'Холодное' : state[keyObject] = 'Теплое';
               elem.forEach(function (box, indexElem) {
-                index == indexElem ? box.checked = true : box.checked = false;
+                if (index == indexElem) {
+                  box.checked = true;
+                  buttonNext.disabled = false;
+                } else box.checked = false;
               });
             } else {
               Object(_validationForm__WEBPACK_IMPORTED_MODULE_2__["default"])(windowWidth, windowHeight, buttonCalc);
@@ -18039,9 +18043,7 @@ var forms = function forms(state) {
 
       postData('assets/server.php', formData).then(function (result) {
         console.log(result);
-        statusMessadge.textContent = mess.success; // обнуление формы
-
-        formData = {};
+        statusMessadge.textContent = mess.success;
       }).catch(function () {
         statusMessadge.textContent = mess.failure;
       }).finally(function () {
