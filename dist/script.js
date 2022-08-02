@@ -17843,6 +17843,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
 /* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _checkNumber__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./checkNumber */ "./src/js/modules/checkNumber.js");
+/* harmony import */ var _validationForm__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./validationForm */ "./src/js/modules/validationForm.js");
+
 
 
 
@@ -17851,22 +17853,13 @@ var changeModalState = function changeModalState(state) {
       windowWidth = document.querySelectorAll('#width'),
       windowHeight = document.querySelectorAll('#height'),
       windowType = document.querySelectorAll('#view_type'),
-      buttonCalc = document.querySelectorAll('.popup_calc_button'),
+      buttonCalc = document.querySelector('.popup_calc_button'),
       windowProfile = document.querySelectorAll('.checkbox');
+  buttonCalc.disabled = true;
   Object(_checkNumber__WEBPACK_IMPORTED_MODULE_1__["default"])('#width');
   Object(_checkNumber__WEBPACK_IMPORTED_MODULE_1__["default"])('#height');
 
   function byActionToElems(event, elem, keyObject) {
-    // тут должна быть проверка на пустоту полей windowWidth и windowHeight, если они путсые дезактивировать кнопку 
-    // цикл для тестирования, без него тоже не работает
-    buttonCalc.forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        // стоит ли обращаться с значения ключей объекта? через windowHeight.value тоже не работает
-        if (state.windowHeight != null && typeof state.windowHeight !== "undefined") {
-          buttonCalc.disabled = true;
-        }
-      });
-    });
     elem.forEach(function (item, index) {
       item.addEventListener(event, function () {
         switch (item.nodeName) {
@@ -17880,7 +17873,10 @@ var changeModalState = function changeModalState(state) {
               elem.forEach(function (box, indexElem) {
                 index == indexElem ? box.checked = true : box.checked = false;
               });
-            } else state[keyObject] = item.value;
+            } else {
+              Object(_validationForm__WEBPACK_IMPORTED_MODULE_2__["default"])(windowWidth, windowHeight, buttonCalc);
+              state[keyObject] = item.value;
+            }
 
             break;
 
@@ -18043,7 +18039,9 @@ var forms = function forms(state) {
 
       postData('assets/server.php', formData).then(function (result) {
         console.log(result);
-        statusMessadge.textContent = mess.success;
+        statusMessadge.textContent = mess.success; // обнуление формы
+
+        formData = {};
       }).catch(function () {
         statusMessadge.textContent = mess.failure;
       }).finally(function () {
@@ -18271,6 +18269,27 @@ var timer = function timer(id, deadline) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (timer);
+
+/***/ }),
+
+/***/ "./src/js/modules/validationForm.js":
+/*!******************************************!*\
+  !*** ./src/js/modules/validationForm.js ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var validationForms = function validationForms(width, height, btn) {
+  if (!width[0].value || !height[0].value) {
+    btn.disabled = true;
+  } else {
+    btn.disabled = false;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (validationForms);
 
 /***/ }),
 

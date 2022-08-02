@@ -1,31 +1,19 @@
 import checkNumber from './checkNumber';
+import validationForms from './validationForm';
 
 const changeModalState = (state) => {
     let windowForm = document.querySelectorAll('.balcon_icons_img'),
           windowWidth = document.querySelectorAll('#width'),
           windowHeight = document.querySelectorAll('#height'),
           windowType = document.querySelectorAll('#view_type'),
-          buttonCalc = document.querySelectorAll('.popup_calc_button'),
+          buttonCalc = document.querySelector('.popup_calc_button'),
           windowProfile = document.querySelectorAll('.checkbox');
+          buttonCalc.disabled = true;
 
     checkNumber('#width');
     checkNumber('#height');
-      
     
-
     function byActionToElems (event, elem, keyObject) {
-
-        // тут должна быть проверка на пустоту полей windowWidth и windowHeight, если они путсые дезактивировать кнопку 
-        // цикл для тестирования, без него тоже не работает
-        buttonCalc.forEach (btn => {
-            btn.addEventListener('click', ()=> {
-                // стоит ли обращаться с значения ключей объекта? через windowHeight.value тоже не работает
-                if (state.windowHeight != null && typeof state.windowHeight !== "undefined") {
-                    buttonCalc.disabled = true;
-                }
-            });
-        });
-
         elem.forEach((item, index) => {
             item.addEventListener(event,() => {
                 switch(item.nodeName) {
@@ -39,17 +27,17 @@ const changeModalState = (state) => {
                             elem.forEach((box, indexElem) => {
                                 index == indexElem ? box.checked = true : box.checked = false; 
                             });
-                        } else state[keyObject] = item.value;
-
                         
-
+                        } else {
+                            validationForms (windowWidth, windowHeight,buttonCalc);
+                            state[keyObject] = item.value;
+                        }
                         break;
 
                     case 'SELECT' : 
                         state[keyObject] = item.value;
                         break; 
                 }
-            
             console.log(state);
 
           });
@@ -61,9 +49,6 @@ const changeModalState = (state) => {
     byActionToElems ('input', windowHeight, 'windowHeight');
     byActionToElems ('change', windowType, 'typeWindow');
     byActionToElems ('change', windowProfile, 'profileWindow');
-
-  
-
 };  
 
 export default changeModalState;
