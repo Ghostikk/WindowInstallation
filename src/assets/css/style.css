@@ -318,7 +318,7 @@ textarea:focus {
 /*Main*/
 .main {
   padding: 10rem 0;
-  background: #ffffff url(../img/main/bg.png) 0 0 no-repeat;
+  background: #ffffff url(../img/main/bg.png) 200px -100px no-repeat;
 }
 
 .main h1 {
@@ -1845,4 +1845,11 @@ textarea:focus {
 
 .linkColor:focus {
   color: #ffb903;
+}
+
+#checkArea:disabled,
+#checkBox:disabled {
+  background: none;
+  cursor: not-allowed;
+  background-color: #fff;
 }
