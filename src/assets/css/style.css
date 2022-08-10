@@ -191,6 +191,11 @@ textarea:focus {
 .header .logo_img {
   display: table-cell;
   vertical-align: middle;
+
+}
+
+.logo_img img {
+  background-image: url("../img/header/logo_2.png") center center/cover no-repeat;
 }
 
 .header .logo_img img {
