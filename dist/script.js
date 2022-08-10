@@ -17856,7 +17856,8 @@ var changeModalState = function changeModalState(state) {
       buttonCalc = document.querySelector('.popup_calc_button'),
       buttonNext = document.querySelector('.popup_calc_profile_button'),
       windowProfile = document.querySelectorAll('.checkbox');
-  buttonCalc.disabled, buttonNext.disabled = true;
+  buttonCalc.disabled = true;
+  buttonNext.disabled = true;
   Object(_checkNumber__WEBPACK_IMPORTED_MODULE_1__["default"])('#width');
   Object(_checkNumber__WEBPACK_IMPORTED_MODULE_1__["default"])('#height');
 
@@ -17889,7 +17890,9 @@ var changeModalState = function changeModalState(state) {
             break;
         }
 
-        console.log(state);
+        console.log(state); // очистка объекта
+
+        state = {};
       });
     });
   }

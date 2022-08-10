@@ -9,7 +9,8 @@ const changeModalState = (state) => {
           buttonCalc = document.querySelector('.popup_calc_button'),
           buttonNext = document.querySelector('.popup_calc_profile_button'),
           windowProfile = document.querySelectorAll('.checkbox');
-          buttonCalc.disabled, buttonNext.disabled = true;
+          buttonCalc.disabled = true;
+          buttonNext.disabled = true;
 
     checkNumber('#width');
     checkNumber('#height');
@@ -33,7 +34,7 @@ const changeModalState = (state) => {
                             });
                         
                         } else {
-                            validationForms (windowWidth, windowHeight,buttonCalc);
+                            validationForms (windowWidth, windowHeight, buttonCalc);
                             state[keyObject] = item.value;
                         }
                         break;
@@ -43,6 +44,8 @@ const changeModalState = (state) => {
                         break; 
                 }
             console.log(state);
+            // очистка объекта
+            state = {};
 
           });
       });
